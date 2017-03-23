@@ -2,8 +2,11 @@
 
 ## Usage
 Generate a KeyPair with Paillier.Keygen(int bitlength), bitlength should be 2048 or bigger.
+
 Get keys from KeyPair with .getPublic() and .getSecret()
+
 Encrypt with Paillier.encrypt(PublicKey pk, BigInteger m)
+
 Decrypt with Paillier.decrypt(SecretKey sk, EncryptedInteger c)
 
 ## Homomorphic properties
