@@ -1,5 +1,7 @@
 package eu.clarussecure.encryption.paillier;
 
+import org.apache.commons.codec.binary.Base64;
+
 import java.math.BigInteger;
 
 /**
@@ -40,5 +42,14 @@ public class EncryptedInteger {
     public EncryptedInteger multiply(BigInteger m) {
         BigInteger c = value.modPow(m, pk.getN2());
         return new EncryptedInteger(c, pk);
+    }
+
+    public String serialize() {
+        return Base64.encodeBase64URLSafeString(value.toByteArray());
+    }
+
+    public static EncryptedInteger load(String encoding, PublicKey pk) {
+        BigInteger value = new BigInteger(1, Base64.decodeBase64(encoding));
+        return new EncryptedInteger(value, pk);
     }
 }

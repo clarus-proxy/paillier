@@ -14,11 +14,10 @@ public class Paillier {
         }
 
         BigInteger n = p.multiply(q);
-        BigInteger g = n.add(BigInteger.ONE);
         BigInteger lambda = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
         BigInteger mu = lambda.modInverse(n);
 
-        PublicKey pk = new PublicKey(n, g);
+        PublicKey pk = new PublicKey(n);
         SecretKey sk = new SecretKey(lambda, mu);
         return new KeyPair(pk, sk);
     }

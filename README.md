@@ -30,6 +30,5 @@ We can compute:
 * Paillier.decrypt(sk, a.multiply(c)) == x * z
 
 ## Notes
-* I have not implemented any serialization/encoding for keys nor values.
 * I do not recommend to use this in a production environment.
 * No error handling.
