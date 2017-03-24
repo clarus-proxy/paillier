@@ -41,4 +41,5 @@ public class EncryptedInteger {
         BigInteger c = value.modPow(m, pk.getN2());
         return new EncryptedInteger(c, pk);
     }
+
 }

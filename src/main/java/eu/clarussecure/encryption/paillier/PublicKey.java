@@ -34,12 +34,12 @@ public class PublicKey {
         return (this.n.equals(b.n) && this.g.equals(b.g));
     }
 
-    public byte[] serialize() {
-        return Base64.encodeInteger(n);
+    public String serialize() {
+        return Base64.encodeBase64URLSafeString(n.toByteArray());
     }
 
-    public static PublicKey load(byte[] base64encoding) {
-        BigInteger n = Base64.decodeInteger(base64encoding);
+    public static PublicKey load(String base64encoding) {
+        BigInteger n = new BigInteger(1, Base64.decodeBase64(base64encoding));
         return new PublicKey(n);
     }
 }

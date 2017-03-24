@@ -24,12 +24,12 @@ public class SecretKey {
         return mu;
     }
 
-    public byte[] serialize() {
-        return Base64.encodeInteger(lambda);
+    public String serialize() {
+        return Base64.encodeBase64URLSafeString(lambda.toByteArray());
     }
 
-    public static SecretKey load(byte[] base64encoding, PublicKey pk) {
-       BigInteger lambda = Base64.decodeInteger(base64encoding);
+    public static SecretKey load(String base64encoding, PublicKey pk) {
+       BigInteger lambda = new BigInteger(1, Base64.decodeBase64(base64encoding));
        BigInteger mu = lambda.modInverse(pk.getN());
        return new SecretKey(lambda, mu);
     }

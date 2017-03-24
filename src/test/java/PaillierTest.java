@@ -51,16 +51,34 @@ public class PaillierTest {
     }
 
     @Test
-    public void keyEncoding() {
+    public void publicKeyEncoding() {
         KeyPair kp = Paillier.Keygen(2048);
-        byte[] pk_enc = kp.getPublic().serialize();
+        String pk_enc = kp.getPublic().serialize();
         PublicKey pk2 = PublicKey.load(pk_enc);
         assertEquals(kp.getPublic().getN(), pk2.getN());
         assertEquals(kp.getPublic().getG(), pk2.getG());
 
-        byte[] sk_enc = kp.getSecret().serialize();
-        SecretKey sk2 = SecretKey.load(sk_enc, pk2);
-        assertEquals(kp.getSecret().getLambda(), sk2.getLambda());
-        assertEquals(kp.getSecret().getMu(), sk2.getMu());
+    }
+
+    @Test
+    public void secretKeyEncoding() {
+        KeyPair kp = Paillier.Keygen(2048);
+        String sk_enc = kp.getSecret().serialize();
+        SecretKey sk2 = SecretKey.load(sk_enc, kp.getPublic());
+        assertEquals(kp.getSecret().getLambda(), kp.getSecret().getLambda());
+        assertEquals(kp.getSecret().getMu(), kp.getSecret().getMu());
+    }
+
+    @Test
+    public void keyPairEncoding() {
+        KeyPair kp = Paillier.Keygen(2048);
+        String kp_enc = kp.serialize();
+
+        KeyPair kp2 = KeyPair.load(kp_enc);
+
+        assertEquals("N", kp.getPublic().getN(), kp2.getPublic().getN());
+        assertEquals("G", kp.getPublic().getG(), kp2.getPublic().getG());
+        assertEquals("L", kp.getSecret().getLambda(), kp2.getSecret().getLambda());
+        assertEquals("M", kp.getSecret().getMu(), kp2.getSecret().getMu());
     }
 }
