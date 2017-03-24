@@ -1,5 +1,7 @@
 package eu.clarussecure.encryption.paillier;
 
+import org.apache.commons.codec.binary.Base64;
+
 import java.math.BigInteger;
 
 /**
@@ -10,10 +12,10 @@ public class PublicKey {
     private BigInteger n2;
     private BigInteger g;
 
-    public PublicKey(BigInteger n, BigInteger g) {
+    public PublicKey(BigInteger n) {
         this.n = n;
         this.n2 = n.multiply(n);
-        this.g = g;
+        this.g = n.add(BigInteger.ONE);
     }
 
     public BigInteger getN() {
@@ -30,5 +32,14 @@ public class PublicKey {
 
     public boolean equals(PublicKey b) {
         return (this.n.equals(b.n) && this.g.equals(b.g));
+    }
+
+    public byte[] serialize() {
+        return Base64.encodeInteger(n);
+    }
+
+    public static PublicKey load(byte[] base64encoding) {
+        BigInteger n = Base64.decodeInteger(base64encoding);
+        return new PublicKey(n);
     }
 }

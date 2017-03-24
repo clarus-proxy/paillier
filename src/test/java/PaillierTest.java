@@ -1,8 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
-import eu.clarussecure.encryption.paillier.EncryptedInteger;
-import eu.clarussecure.encryption.paillier.KeyPair;
-import eu.clarussecure.encryption.paillier.Paillier;
+import eu.clarussecure.encryption.paillier.*;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -50,5 +48,19 @@ public class PaillierTest {
         assertEquals(a.add(b), Paillier.decrypt(kp.getSecret(), eA_plus_eB));
         assertEquals(a.add(b), Paillier.decrypt(kp.getSecret(), eA_plus_b));
         assertEquals(a.multiply(b), Paillier.decrypt(kp.getSecret(), eA_times_b));
+    }
+
+    @Test
+    public void keyEncoding() {
+        KeyPair kp = Paillier.Keygen(2048);
+        byte[] pk_enc = kp.getPublic().serialize();
+        PublicKey pk2 = PublicKey.load(pk_enc);
+        assertEquals(kp.getPublic().getN(), pk2.getN());
+        assertEquals(kp.getPublic().getG(), pk2.getG());
+
+        byte[] sk_enc = kp.getSecret().serialize();
+        SecretKey sk2 = SecretKey.load(sk_enc, pk2);
+        assertEquals(kp.getSecret().getLambda(), sk2.getLambda());
+        assertEquals(kp.getSecret().getMu(), sk2.getMu());
     }
 }
