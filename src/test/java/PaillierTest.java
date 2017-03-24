@@ -81,4 +81,15 @@ public class PaillierTest {
         assertEquals("L", kp.getSecret().getLambda(), kp2.getSecret().getLambda());
         assertEquals("M", kp.getSecret().getMu(), kp2.getSecret().getMu());
     }
+
+    @Test
+    public void encryptedIntegerEncoding() {
+        KeyPair kp = Paillier.Keygen(2048);
+        int m = 1234;
+        EncryptedInteger c = Paillier.encrypt(kp.getPublic(), BigInteger.valueOf(m));
+        EncryptedInteger d = EncryptedInteger.load(c.serialize(), kp.getPublic());
+        assertEquals(BigInteger.valueOf(m), Paillier.decrypt(kp.getSecret(), d));
+
+    }
+
 }
