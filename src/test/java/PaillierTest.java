@@ -40,7 +40,9 @@ public class PaillierTest {
         EncryptedInteger eA_plus_eB = null;
         try {
             eA_plus_eB = eA.sum(eB);
-        } catch (Exception e) {};
+        } catch (Exception e) {
+        }
+        ;
 
         EncryptedInteger eA_plus_b = eA.sum(b);
         EncryptedInteger eA_times_b = eA.multiply(b);

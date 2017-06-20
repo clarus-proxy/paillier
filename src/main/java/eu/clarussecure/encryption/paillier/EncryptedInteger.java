@@ -1,4 +1,4 @@
-package eu.clarussecure.encryption.paillier;
+package cat.urv.crises.eigenpaillier.paillier;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -25,12 +25,12 @@ public class EncryptedInteger {
     }
 
     public EncryptedInteger sum(EncryptedInteger b) throws Exception {
-       if (!pk.equals(b.pk)) {
-           throw new Exception("Public keys do not match");
-       }
+        if (!pk.equals(b.pk)) {
+            throw new Exception("Public keys do not match");
+        }
 
-       BigInteger c = value.multiply(b.value).mod(pk.getN2());
-       return new EncryptedInteger(c, pk);
+        BigInteger c = value.multiply(b.value).mod(pk.getN2());
+        return new EncryptedInteger(c, pk);
     }
 
     public EncryptedInteger sum(BigInteger m) {

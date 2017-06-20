@@ -1,4 +1,4 @@
-package eu.clarussecure.encryption.paillier;
+package cat.urv.crises.eigenpaillier.paillier;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -7,10 +7,10 @@ public class Paillier {
 
     public static KeyPair Keygen(int bitlength) {
         SecureRandom rng = new SecureRandom();
-        BigInteger p = BigInteger.probablePrime(bitlength/2, rng);
+        BigInteger p = BigInteger.probablePrime(bitlength / 2, rng);
         BigInteger q = p;
         while (p.equals(q)) {
-            q = BigInteger.probablePrime(bitlength/2, rng);
+            q = BigInteger.probablePrime(bitlength / 2, rng);
         }
 
         BigInteger n = p.multiply(q);
@@ -28,7 +28,7 @@ public class Paillier {
         while (r.compareTo(pk.getN()) == 1) {
             r = new BigInteger(pk.getN().bitLength(), rng);
         }
-        BigInteger c1 = pk.getG().modPow(plaintext,pk.getN2());
+        BigInteger c1 = pk.getG().modPow(plaintext, pk.getN2());
         BigInteger c2 = r.modPow(pk.getN(), pk.getN2());
         BigInteger c = c1.multiply(c2).mod(pk.getN2());
         return new EncryptedInteger(c, pk);

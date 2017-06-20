@@ -1,4 +1,4 @@
-package eu.clarussecure.encryption.paillier;
+package cat.urv.crises.eigenpaillier.paillier;
 
 import org.apache.commons.codec.binary.Base64;
 

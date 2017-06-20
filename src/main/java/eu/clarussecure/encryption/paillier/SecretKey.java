@@ -1,4 +1,4 @@
-package eu.clarussecure.encryption.paillier;
+package cat.urv.crises.eigenpaillier.paillier;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -29,8 +29,8 @@ public class SecretKey {
     }
 
     public static SecretKey load(String base64encoding, PublicKey pk) {
-       BigInteger lambda = new BigInteger(1, Base64.decodeBase64(base64encoding));
-       BigInteger mu = lambda.modInverse(pk.getN());
-       return new SecretKey(lambda, mu);
+        BigInteger lambda = new BigInteger(1, Base64.decodeBase64(base64encoding));
+        BigInteger mu = lambda.modInverse(pk.getN());
+        return new SecretKey(lambda, mu);
     }
 }
