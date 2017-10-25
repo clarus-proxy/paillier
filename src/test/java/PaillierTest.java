@@ -1,6 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
-import eu.clarussecure.encryption.paillier.*;
+import cat.urv.crises.eigenpaillier.paillier.*;
 import org.junit.Test;
 
 import java.math.BigInteger;
